@@ -46,7 +46,7 @@ VALUES (1, 1, 1),(3, 1, 1),(2, 2, 1),(3, 2, 2),(3, 3, 1),(4, 3, 1);
 
 -- Total money spent by customer
 SELECT c.customer_name,  SUM(ord.quantity*p.price) as 
-Total_Amount
+total_amount
 FROM customer c inner join customer_order o
      on c.customer_id = o.customer_id join
      order_standard_pizza ord
@@ -54,19 +54,19 @@ FROM customer c inner join customer_order o
      standard_pizza p
      on ord.standard_pizza_id = p.standard_pizza_id
 GROUP BY customer_name
-ORDER BY Total_Amount DESC;
+ORDER BY total_amount DESC;
 
 -- Total money spent by customer by date
-SELECT c.customer_name, o.delivery_time, SUM(ord.quantity*p.price) as 
-Total_Amount
+SELECT c.customer_name, DATE(o.delivery_time) as date, SUM(ord.quantity*p.price) as 
+total_amount
 FROM customer c inner join customer_order o
      on c.customer_id = o.customer_id join
      order_standard_pizza ord
      on o.order_id = ord.order_id join
      standard_pizza p
      on ord.standard_pizza_id = p.standard_pizza_id
-GROUP BY c.customer_name, o.delivery_time
-ORDER BY Total_Amount DESC;
+GROUP BY c.customer_name, date
+ORDER BY total_amount DESC;
 
 
 
